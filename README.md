@@ -14,6 +14,32 @@ This library was originally built by LibiChai based on the Redlock algorithm dev
 2. Add `ThatsUs\RedLock\RedLockServiceProvider::class,` to the `providers` array in config/app.php
 3. Enjoy!
 
+### Configuration
+
+1. Add `redis_lock` to `redis` node in `/config/database.php`:
+```php
+'redis' => [
+
+        'client' => 'predis',
+
+        'default' => [
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'password' => env('REDIS_PASSWORD', null),
+            'port' => env('REDIS_PORT', 6379),
+            'database' => 0,
+        ],
+
+        'redis_lock' => [
+            'retry_delay' => env('REDIS_LOCK_RETRY_DELAY', 200),
+            'retry_count' => env('REDIS_LOCK_RETRY_COUNT', 3)
+        ]
+    ],
+```
+2. Add retry parameters to `.env`:
+```ini
+REDIS_LOCK_RETRY_DELAY=200
+REDIS_LOCK_RETRY_COUNT=3
+```
 
 ### It's Simple!
 
